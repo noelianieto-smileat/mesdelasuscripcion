@@ -1,0 +1,12 @@
+const $=id=>document.getElementById(id);
+const nf=(d=0)=>({minimumFractionDigits:d,maximumFractionDigits:d,useGrouping:'always'});
+const num=(n,d=0)=>n.toLocaleString('es-ES',nf(d));
+const eur=(n,d=0)=>num(n,d)+' €';
+const x=(n)=>num(n,2)+'x';
+const stat=(l,v)=>`<div class="stat"><span>${l}</span><b>${v}</b></div>`;
+const kpis=a=>a.map(([v,l,c])=>`<div class="kpi" style="--c:${c||'var(--blue)'}"><span class="num">${v}</span><span>${l}</span></div>`).join('');
+const bars=(items,color)=>{const m=Math.max(...items.map(i=>i.v));return items.map(i=>`<div class="bar"><span class="n" title="${i.n}">${i.n}</span><div class="t"><i data-w="${i.v/m*100}" style="--c:${i.c||color}"></i></div><b>${i.l}</b></div>`).join('')};
+const animate=()=>requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('[data-w]').forEach(e=>e.style.width=e.dataset.w+'%'),80));
+const header=on=>`<div class="wrap"><div class="brand"><img class="brand-logo" src="assets/logo-smileat-header.png" alt="Smileat"><span class="brand-div"></span><span class="header-tag">Reporte septiembre 2026 · Promociones</span></div><nav class="nav"><a href="espana.html" class="${on=='es'?'on':''}">España</a><a href="portugal.html" class="${on=='pt'?'on':''}">Portugal</a></nav></div>`;
+const footer=t=>`<img src="assets/logo-claim-blanco.png" alt="Smileat · Tan real como tu peque"><p>${t}</p>`;
+const ticket=(flag,hl,title,items)=>`<div class="ticket"><span class="flag">${flag}</span><div class="hl">${hl}</div><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
